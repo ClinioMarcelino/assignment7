@@ -5,15 +5,29 @@ import java.util.Scanner;
 public class Complex implements IComplex {
 	private float realPart, imaginaryPart = DEFAULT_VALUE;
 
-	public Complex(float a, float b) {
-		setRealPart(a);
-		setImaginaryPart(b);
+	/**
+	 * 
+	 * @param realPart
+	 * @param imaginaryPart
+	 */
+	public Complex(float realPart, float imaginaryPart) {
+		setRealPart(realPart);
+		setImaginaryPart(imaginaryPart);
+	}
+	
+	/**
+	 * 
+	 * @param realPart
+	 */
+	public Complex(float realPart) {
+		setRealPart(realPart);
 	}
 
-	public Complex(float a) {
-		setRealPart(a);
-	}
-
+	/**
+	 * 
+	 * @param obj
+	 * @throws Exception - if object is not from the class Complex
+	 */
 	public Complex(Object obj) throws Exception {
 		if (Complex.class != obj.getClass())
 			throw new Exception("The object passed to the copy constructor is not an instaceo of the class Complex");
@@ -22,10 +36,14 @@ public class Complex implements IComplex {
 		setImaginaryPart(cpx.getImaginaryPart());
 	}
 
+	/**
+	 * Default constructor complex number equals the default Value.
+	 */
 	public Complex() {
 		this(DEFAULT_VALUE,DEFAULT_VALUE);
 	}
 
+	
 	public float getRealPart() {
 		return realPart;
 	}
@@ -42,25 +60,41 @@ public class Complex implements IComplex {
 		this.imaginaryPart = b;
 	}
 
+	/**
+	 * @override toString() in Object class
+	 */
 	public String toString() {
 		return this.output(this.getRealPart(), this.getImaginaryPart());
 	}
 
-	@Override
+	
+	/**
+	 * @param cpx - complex object
+	 * @Override add() in IComplex
+	 * @return String - representation of adding two complex numbers
+	 */
 	public String add(Complex cpx) {
 		float a = this.getRealPart() + cpx.getRealPart();
 		float b = this.getImaginaryPart() + cpx.getImaginaryPart();
 		return output(a, b);
 	}
 
-	@Override
+	/**
+	 * @param cpx - complex object
+	 * @Override subtract() in IComplex
+	 * @return String - representation of subtracting two complex numbers
+	 */
 	public String subtract(Complex cpx) {
 		float a = this.getRealPart() - cpx.getRealPart();
 		float b = this.getImaginaryPart() - cpx.getImaginaryPart();
 		return output(a, b);
 	}
 
-	@Override
+	/**
+	 * @param cpx - complex object
+	 * @Override multiply() in IComplex
+	 * @return String - representation of multiplying two complex numbers
+	 */
 	public String multiply(Complex cpx) {
 		float a = this.getRealPart() * cpx.getRealPart() - this.getImaginaryPart() * cpx.getImaginaryPart();
 		float b = this.getImaginaryPart() * cpx.getRealPart() + this.getRealPart() * cpx.getImaginaryPart();
@@ -68,7 +102,11 @@ public class Complex implements IComplex {
 		return output(a, b);
 	}
 
-	@Override
+	/**
+	 * @param cpx - complex object
+	 * @Override divide() in IComplex
+	 * @return String - representation of dividing two complex numbers
+	 */
 	public String divide(Complex cpx) {
 		float a = (this.getRealPart() * cpx.getRealPart() + this.getImaginaryPart() * cpx.getImaginaryPart())
 				/ (cpx.getRealPart() * cpx.getRealPart() + cpx.getImaginaryPart() * cpx.getImaginaryPart());
@@ -79,12 +117,21 @@ public class Complex implements IComplex {
 
 	}
 
-	@Override
+	/**
+	 * This method returns the absolute number for a complex number notation
+	 * @param cpx - complex object
+	 * @Override abs() in IComplex
+	 * @return float
+	 */
 	public float abs() {
 		return (float) Math.sqrt(Math.pow(this.realPart, 2) + Math.pow(this.imaginaryPart, 2));
 	}
 
 	@Override
+	/**
+	 * This method compares two objects if they are both from the Complex class and have the same absolute value.
+	 * @return int -> -1 if not from the same class<br>1 if from the same class and same absolute value<br>0 if from the same class but not the same absolute value
+	 */
 	public int compareTo(Object obj) {
 		if (Complex.class != obj.getClass())
 			return -1;
@@ -95,6 +142,12 @@ public class Complex implements IComplex {
 			return 0;
 	}
 
+	/**
+	 * This private method has the intention of preparing the correct string for all outputs
+	 * @param a
+	 * @param b
+	 * @return string
+	 */
 	private String output(float a, float b) {
 		if (b == 0)
 			return a + "";
